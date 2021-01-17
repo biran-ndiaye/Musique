@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import MusicContainer from 'container/crud-container'
+import Music from 'container/crud-container'
 
 ReactDOM.render(
-    <MusicContainer />,
+    <Music />,
     document.getElementById('app')
 )
