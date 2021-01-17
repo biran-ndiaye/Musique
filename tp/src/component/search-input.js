@@ -1,6 +1,7 @@
 import React from 'react'
 
-const SearchInput = ({ type, id, name, placeholder }) => (
-    <input type={type} name={name} id={id} placeholder={placeholder} />
+const SearchInput = ({ id, name, placeholder }) => (
+    <input type='search' name={name} id={id} placeholder={placeholder} class='form-control mr-sm-2' aria-label='Search' />
+
 )
 export default SearchInput
