@@ -16,6 +16,7 @@ class Music extends Component {
             searchValue: '',
             tracks: []
         }
+        this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
     }
 
     componentDidMount () {
@@ -27,6 +28,11 @@ class Music extends Component {
         })
     }
 
+    // gestionnaire des evenements
+    handleInputSearchChange (event) {
+        this.setState({ searchValue: event.target.value })
+    }
+
     render () {
         return (
             <div>
@@ -34,7 +40,7 @@ class Music extends Component {
                     brand='Music'
                     id='navBarMusic'
                     playlistSelect={<PlaylistSelect name='playlist' id='playlist' options={this.state.playlist} />}
-                    inputSearch={<SearchInput id='search' name='search' placeholder='search track...' />}
+                    inputSearch={<SearchInput id='search' name='search' placeholder='search track...' onChange={this.handleInputSearchChange} />}
                 />
                 <Playlist tracks={this.state.tracks} />
             </div>
