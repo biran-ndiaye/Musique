@@ -7,6 +7,7 @@ import SearchResult from 'component/search-result'
 import PlaylistData from 'service/playlist-data'
 import MusicData from 'service/music-data'
 import Playlist from 'container/playlist'
+import LoadingSpinner from 'component/loading-spinner'
 import '../css/style.css'
 
 class Music extends Component {
@@ -19,7 +20,8 @@ class Music extends Component {
             selectedPlaylistID: 1,
             searchValue: '',
             tracks: [],
-            searchResult: []
+            searchResult: [],
+            loading: false
         }
         this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
@@ -41,8 +43,10 @@ class Music extends Component {
 
     handleSearch () {
         if (this.state.searchValue !== '') {
-            this.musicData.search({ query: this.state.searchValue }, result => {
-                this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search' })
+            this.setState({ loading: true }, () => {
+                this.musicData.search({ query: this.state.searchValue }, result => {
+                    this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search', loading: false })
+                })
             })
         }
     }
@@ -85,7 +89,7 @@ class Music extends Component {
                     inputSearch={<SearchInput id='search' name='search' placeholder='search track...' onChange={this.handleInputSearchChange} />}
                     onClickSearch={this.handleSearch}
                 />
-                {this.componentToRender()}
+                {this.state.loading ? <LoadingSpinner /> : (this.componentToRender())}
             </div>
 
         )

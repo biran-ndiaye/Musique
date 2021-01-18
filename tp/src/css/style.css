@@ -33,3 +33,14 @@
     width: 40%;
     height: 40%;
 }
+
+.fa-spinner {
+    font-size: 75px;
+    color: rgb(51, 126, 224);
+    text-align: center;
+}
+
+.spiner {
+    width: max-content;
+    margin: 100px auto;
+}
