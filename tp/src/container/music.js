@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import NavBar from 'component/navbar'
 import PlaylistSelect from 'component/playlist-select'
 import SearchInput from 'component/search-input'
+import PlaylistData from 'service/playlist-data'
 import '../css/style.css'
+
 class Music extends Component {
     constructor (props) {
         super(props)
@@ -13,7 +15,9 @@ class Music extends Component {
     }
 
     componentDidMount () {
-        this.setState({ playlist: [{ id: 1, title: 'pop' }, { id: 2, title: 'hip/hop' }, { id: 3, title: 'jazz' }] })
+        PlaylistData.getAll(result => {
+            this.setState({ playlist: result })
+        })
     }
 
     render () {
