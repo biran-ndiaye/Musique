@@ -9,8 +9,8 @@ class Playlist extends Component {
         this.state = {
             index: 0,
             options: {
-                height: '390',
-                width: '640',
+                height: '300',
+                width: '540',
                 playerVars: { // https://developers.google.com/youtube/player_parameters
                     autoplay: 0
                 }
@@ -81,8 +81,8 @@ class Playlist extends Component {
                             <div className='card-body'>
                                 <h5 className='card-title'>{this.props.tracks[this.state.index] && this.props.tracks[this.state.index].title}</h5>
                                 <div>
-                                    <button onClick={this.previousOnClickHandler}><i className='fas fa-step-backward' /></button>
-                                    <button onClick={this.nextOnClickHandler}><i className='fas fa-step-forward' /></button>
+                                    <button onClick={this.previousOnClickHandler}><i className='fa fa-step-backward' /></button>
+                                    <button onClick={this.nextOnClickHandler}><i className='fa fa-step-forward' /></button>
                                 </div>
                             </div>
                         </div>

@@ -5,3 +5,12 @@
 #search {
     display: flex;
 }
+
+.navbar-brand, .fa {
+    cursor: pointer;
+}
+
+.playlist {
+    width: 90%;
+    margin: 20px auto;
+}

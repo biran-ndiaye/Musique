@@ -41,12 +41,17 @@ app.use(function (request, response, next) {
 })
 function sendResponse (response, datas) {
     // fermer la connection
-    client.end()
     response.writeHead(HTTP_OK, { 'content-type': CONTENT_TYPE_JSON })
     response.end(JSON.stringify(datas))
 }
 app.get('/playlist', (request, response) => {
     client.query('SELECT * FROM playlist', [])
+        .then(result => {
+            sendResponse(response, result.rows)
+        })
+})
+app.get('/playlist/:id', (request, response) => {
+    client.query('SELECT * FROM track where playlist_id=$1', [request.params.id])
         .then(result => {
             sendResponse(response, result.rows)
         })
