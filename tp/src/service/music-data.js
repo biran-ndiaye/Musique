@@ -9,6 +9,7 @@ export default class MusicData {
 
     search (params, resultCallback) {
         this.database.search(params.query, { type: 'master', per_page: params.perPage }, function (error, data) {
+            console.log(params.query)
             console.log(error, data)
             resultCallback(data)
         })

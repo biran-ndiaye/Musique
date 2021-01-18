@@ -8,7 +8,7 @@ function makeTrack (track, index) {
                 <h4>{track.title}</h4>
                 <div>Style : {track.style[0]}</div>
                 <div>Year  : {track.year}</div>
-                <a>Detail...</a>
+                <a href='#'>Detail...</a>
             </div>
         </div>
     )

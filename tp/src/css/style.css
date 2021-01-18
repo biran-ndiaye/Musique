@@ -14,3 +14,22 @@
     width: 90%;
     margin: 20px auto;
 }
+
+.tracks {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.track {
+    display: flex;
+    margin: 10px 25px;
+}
+
+.track>div {
+    margin-left: 15px;
+}
+
+.track img {
+    width: 40%;
+    height: 40%;
+}

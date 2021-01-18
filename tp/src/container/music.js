@@ -41,10 +41,8 @@ class Music extends Component {
 
     handleSearch () {
         if (this.state.searchValue !== '') {
-            this.musicData.search(this.state.searchValue, result => {
-                this.setState({ searchResult: result.results, searchValue: '' })
-                this.setState({ renderComponent: 'search' })
-                console.log(this.state.searchResult.results)
+            this.musicData.search({ query: this.state.searchValue }, result => {
+                this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search' })
             })
         }
     }
@@ -57,7 +55,6 @@ class Music extends Component {
     }
 
     renderSearchResult () {
-        console.log(this.state.searchResult)
         return (
             <SearchResult searchTracks={this.state.searchResult} id='tracks' />
         )
