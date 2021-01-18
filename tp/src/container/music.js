@@ -3,20 +3,26 @@ import React, { Component } from 'react'
 import NavBar from 'component/navbar'
 import PlaylistSelect from 'component/playlist-select'
 import SearchInput from 'component/search-input'
+import SearchResult from 'component/search-result'
 import PlaylistData from 'service/playlist-data'
+import MusicData from 'service/music-data'
 import Playlist from 'container/playlist'
 import '../css/style.css'
 
 class Music extends Component {
     constructor (props) {
         super(props)
+        this.musicData = new MusicData('nAInmfZIKtAGWSZLxRKUMavQpUoDysrUimFRhhXF')
         this.state = {
+            renderComponent: 'playlist',
             playlist: [],
             selectedPlaylistID: 1,
             searchValue: '',
-            tracks: []
+            tracks: [],
+            searchResult: []
         }
         this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
     }
 
     componentDidMount () {
@@ -33,6 +39,45 @@ class Music extends Component {
         this.setState({ searchValue: event.target.value })
     }
 
+    handleSearch () {
+        if (this.state.searchValue !== '') {
+            this.musicData.search(this.state.searchValue, result => {
+                this.setState({ searchResult: result.results, searchValue: '' })
+                this.setState({ renderComponent: 'search' })
+                console.log(this.state.searchResult.results)
+            })
+        }
+    }
+
+    // afficher les composants
+    renderPlayList () {
+        return (
+            <Playlist tracks={this.state.tracks} />
+        )
+    }
+
+    renderSearchResult () {
+        console.log(this.state.searchResult)
+        return (
+            <SearchResult searchTracks={this.state.searchResult} id='tracks' />
+        )
+    }
+
+    renderDetail () {
+
+    }
+
+    componentToRender () {
+        switch (this.state.renderComponent) {
+        case 'detail':
+            return this.renderDetail()
+        case 'search':
+            return this.renderSearchResult()
+        default:
+            return this.renderPlayList()
+        }
+    }
+
     render () {
         return (
             <div>
@@ -41,8 +86,9 @@ class Music extends Component {
                     id='navBarMusic'
                     playlistSelect={<PlaylistSelect name='playlist' id='playlist' options={this.state.playlist} />}
                     inputSearch={<SearchInput id='search' name='search' placeholder='search track...' onChange={this.handleInputSearchChange} />}
+                    onClickSearch={this.handleSearch}
                 />
-                <Playlist tracks={this.state.tracks} />
+                {this.componentToRender()}
             </div>
 
         )

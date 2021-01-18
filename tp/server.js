@@ -3,7 +3,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const { Client } = require('pg')
-
 const app = express()
 
 // configuration des BD

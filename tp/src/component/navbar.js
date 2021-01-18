@@ -11,7 +11,7 @@ const NavBar = (props) => (
                 <form>
                     {props.inputSearch}
                 </form>
-                <button className='btn btn-outline-info my-2 my-sm-0'>Search</button>
+                <button onClick={props.onClickSearch} className='btn btn-outline-info my-2 my-sm-0'>Search</button>
             </div>
 
         </nav>

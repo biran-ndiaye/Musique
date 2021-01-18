@@ -1,6 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
-
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 module.exports = {
     resolve: {
         alias: {
@@ -36,7 +36,8 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: 'src/index.html',
             filename: './index.html'
-        })
+        }),
+        new NodePolyfillPlugin()
     ]
 
 }
