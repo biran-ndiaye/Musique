@@ -1,7 +1,7 @@
 import React from 'react'
 
 function optionBuider (option, index) {
-    return <option key={index} value={option}>{option}</option>
+    return <option key={index} value={option.id}>{option.title}</option>
 }
 const PlaylistSelect = ({ name, id, options, onClick }) => (
     <div>

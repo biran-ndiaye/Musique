@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Music from 'container/crud-container'
+import Music from 'container/music'
 
 ReactDOM.render(
     <Music />,
