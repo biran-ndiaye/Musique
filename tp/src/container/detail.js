@@ -7,14 +7,22 @@ class Detail extends Component {
         this.state = {
             DetailTrackVideos: []
         }
+        this.handleAddCLick = this.handleAddCLick.bind(this)
     }
 
     componentDidMount () {
         this.setState({ DetailTrackVideos: this.props.DetailTrackVideos })
     }
 
-    handleAddCLick () {
-
+    handleAddCLick (event) {
+        const id = event.target.parentNode.id
+        const DetailTrackVideos = this.props.DetailTrackVideos.map((trackVideo, index) => {
+            if (index === parseInt(id)) {
+                trackVideo.isChecked = !trackVideo.isChecked
+            }
+            return trackVideo
+        })
+        this.setState({ DetailTrackVideos: DetailTrackVideos })
     }
 
     render () {
@@ -36,7 +44,7 @@ class Detail extends Component {
                     </div>
                     <div className='col'>
                         <h5 className='col-Tracks'>Tracks</h5>
-                        <DetailResultVideo listTracks={this.props.DetailTrackVideos} onClickAdd={this.handleAddCLick} />
+                        <DetailResultVideo listTracks={this.state.DetailTrackVideos.length === 0 ? this.props.DetailTrackVideos : this.state.DetailTrackVideos} onClickAdd={this.handleAddCLick} />
                     </div>
                 </div>
             </div>

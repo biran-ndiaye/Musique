@@ -50,7 +50,6 @@ class Music extends Component {
             this.setState({ loading: true }, () => {
                 this.musicData.search({ query: this.state.searchValue }, result => {
                     this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search', loading: false })
-                    console.log(this.state.searchResult)
                 })
             })
         }
@@ -63,6 +62,7 @@ class Music extends Component {
             .then(response => response.json())
             .then(responseObject => {
                 this.setState({ DetailTrackVideos: responseObject.videos })
+                console.log(this.state.DetailTrackVideos)
             })
     }
 
@@ -84,7 +84,6 @@ class Music extends Component {
     }
 
     renderDetail () {
-        console.log(this.state.DetailTrackVideos)
         return (
             <Detail
                 DetailTrack={this.state.searchResult[this.state.indexDetail]}
