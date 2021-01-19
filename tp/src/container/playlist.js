@@ -9,8 +9,8 @@ class Playlist extends Component {
         this.state = {
             index: 0,
             options: {
-                height: '300',
-                width: '540',
+                height: '400',
+                width: '640',
                 playerVars: { // https://developers.google.com/youtube/player_parameters
                     autoplay: 0
                 }

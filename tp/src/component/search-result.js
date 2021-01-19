@@ -1,21 +1,21 @@
 import React from 'react'
 
-function makeTrack (track, index) {
+function makeTrack (track, index, onClickLink) {
     return (
         <div className='track' key={index}>
             <img className='trackImg' src={track.cover_image} alt={track.title} />
-            <div>
-                <h4>{track.title}</h4>
+            <div id={index}>
+                <h5>{track.title}</h5>
                 <div>Style : {track.style[0]}</div>
                 <div>Year  : {track.year}</div>
-                <a href='#'>Detail...</a>
+                <a href='tracks/details' onClick={onClickLink}>Detail...</a>
             </div>
         </div>
     )
 }
-const SearchResult = ({ searchTracks, id }) => (
+const SearchResult = ({ searchTracks, onClickLink, id }) => (
     <div className='tracks' id={id}>
-        {searchTracks.map((track, index) => makeTrack(track, index))}
+        {searchTracks.map((track, index) => makeTrack(track, index, onClickLink))}
     </div>
 )
 export default SearchResult

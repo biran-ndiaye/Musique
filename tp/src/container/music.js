@@ -4,10 +4,11 @@ import NavBar from 'component/navbar'
 import PlaylistSelect from 'component/playlist-select'
 import SearchInput from 'component/search-input'
 import SearchResult from 'component/search-result'
+import LoadingSpinner from 'component/loading-spinner'
 import PlaylistData from 'service/playlist-data'
 import MusicData from 'service/music-data'
 import Playlist from 'container/playlist'
-import LoadingSpinner from 'component/loading-spinner'
+import Detail from 'container/detail'
 import '../css/style.css'
 
 class Music extends Component {
@@ -21,10 +22,13 @@ class Music extends Component {
             searchValue: '',
             tracks: [],
             searchResult: [],
-            loading: false
+            loading: false,
+            DetailTrackVideos: [],
+            indexDetail: 0
         }
         this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
+        this.handleDetail = this.handleDetail.bind(this)
     }
 
     componentDidMount () {
@@ -46,9 +50,20 @@ class Music extends Component {
             this.setState({ loading: true }, () => {
                 this.musicData.search({ query: this.state.searchValue }, result => {
                     this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search', loading: false })
+                    console.log(this.state.searchResult)
                 })
             })
         }
+    }
+
+    handleDetail (event) {
+        event.preventDefault()
+        this.setState({ renderComponent: 'detail', indexDetail: event.target.parentNode.id })
+        fetch(this.state.searchResult[this.state.indexDetail].resource_url, { method: 'GET' })
+            .then(response => response.json())
+            .then(responseObject => {
+                this.setState({ DetailTrackVideos: responseObject.videos })
+            })
     }
 
     // afficher les composants
@@ -60,12 +75,22 @@ class Music extends Component {
 
     renderSearchResult () {
         return (
-            <SearchResult searchTracks={this.state.searchResult} id='tracks' />
+            <SearchResult
+                searchTracks={this.state.searchResult}
+                id='tracks'
+                onClickLink={this.handleDetail}
+            />
         )
     }
 
     renderDetail () {
-
+        console.log(this.state.DetailTrackVideos)
+        return (
+            <Detail
+                DetailTrack={this.state.searchResult[this.state.indexDetail]}
+                DetailTrackVideos={this.state.DetailTrackVideos}
+            />
+        )
     }
 
     componentToRender () {

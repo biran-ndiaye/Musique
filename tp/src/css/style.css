@@ -44,3 +44,21 @@
     width: max-content;
     margin: 100px auto;
 }
+
+.DetailResultVideo {
+    width: 95%;
+    margin: 15px auto
+}
+
+.col-Tracks {
+    text-align: center;
+}
+
+.fa-plus, .fa-check {
+    font-size: 24px
+}
+
+.LitracksResult {
+    display: flex;
+    justify-content: space-between;
+}
