@@ -29,6 +29,8 @@ class Music extends Component {
         this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
         this.handleDetail = this.handleDetail.bind(this)
+        this.handleOnClickSelect = this.handleOnClickSelect.bind(this)
+        this.handleBrandClick = this.handleBrandClick.bind(this)
     }
 
     componentDidMount () {
@@ -50,6 +52,7 @@ class Music extends Component {
             this.setState({ loading: true }, () => {
                 this.musicData.search({ query: this.state.searchValue }, result => {
                     this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search', loading: false })
+                    console.log(this.state.searchResult)
                 })
             })
         }
@@ -64,6 +67,19 @@ class Music extends Component {
                 this.setState({ DetailTrackVideos: responseObject.videos })
                 console.log(this.state.DetailTrackVideos)
             })
+    }
+
+    handleOnClickSelect (event) {
+        this.setState({ selectedPlaylistID: parseInt(event.target.value) })
+        PlaylistData.getTracks(this.state.selectedPlaylistID, result => {
+            console.log(this.state.selectedPlaylistID)
+            this.setState({ tracks: result })
+        })
+    }
+
+    handleBrandClick (event) {
+        // recuprer les tracks selon playlist_id
+        this.setState(({ renderComponent: 'playlist' }))
     }
 
     // afficher les composants
@@ -88,6 +104,8 @@ class Music extends Component {
             <Detail
                 DetailTrack={this.state.searchResult[this.state.indexDetail]}
                 DetailTrackVideos={this.state.DetailTrackVideos}
+                playlistId={this.state.selectedPlaylistID}
+                PlaylistData={PlaylistData}
             />
         )
     }
@@ -109,9 +127,10 @@ class Music extends Component {
                 <NavBar
                     brand='Music'
                     id='navBarMusic'
-                    playlistSelect={<PlaylistSelect name='playlist' id='playlist' options={this.state.playlist} />}
+                    playlistSelect={<PlaylistSelect name='playlist' id='playlist' options={this.state.playlist} onClickSelect={this.handleOnClickSelect} />}
                     inputSearch={<SearchInput id='search' name='search' placeholder='search track...' onChange={this.handleInputSearchChange} />}
                     onClickSearch={this.handleSearch}
+                    onClickBrand={this.handleBrandClick}
                 />
                 {this.state.loading ? <LoadingSpinner /> : (this.componentToRender())}
             </div>

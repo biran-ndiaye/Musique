@@ -15,5 +15,17 @@ class PlaylistData {
                 resultCallback(responseObject)
             })
     }
+
+    static addTrack (track, resultCallback) {
+        fetch('http://localhost:8080/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(track)
+        })
+            .then(response => response.json())
+            .then(responseObject => {
+                resultCallback(responseObject)
+            })
+    }
 }
 export default PlaylistData

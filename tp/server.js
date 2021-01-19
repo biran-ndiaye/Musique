@@ -50,9 +50,18 @@ app.get('/playlist', (request, response) => {
         })
 })
 app.get('/playlist/:id', (request, response) => {
-    client.query('SELECT * FROM track where playlist_id=$1', [request.params.id])
+    console.log(parseInt(request.params.id))
+    client.query('SELECT * FROM track where playlist_id=$1', [parseInt(request.params.id)])
         .then(result => {
             sendResponse(response, result.rows)
+        })
+})
+app.post('/track', (request, response) => {
+    const query = 'INSERT INTO track (playlist_id , title, uri,master_id) VALUES ($1, $2, $3, $4)'
+    console.log(request.body)
+    client.query(query, [request.body.palylistId, request.body.title, request.body.uri, request.body.masterID])
+        .then(result => {
+            sendResponse(response, result)
         })
 })
 app.listen(PORT, function () {
