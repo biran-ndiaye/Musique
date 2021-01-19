@@ -47,7 +47,13 @@ class Playlist extends Component {
     previousOnClickHandler () {
         if (this.state.index > 0) {
             this.setState({
-                index: this.state.index - 1
+                index: this.state.index - 1,
+                options: {
+                    ...this.state.options,
+                    playerVars: {
+                        autoplay: 1
+                    }
+                }
             })
         }
     }
@@ -63,7 +69,13 @@ class Playlist extends Component {
 
     onClickHandler (index) {
         this.setState({
-            index: index
+            index: index,
+            options: {
+                ...this.state.options,
+                playerVars: {
+                    autoplay: 1
+                }
+            }
         })
     }
 
