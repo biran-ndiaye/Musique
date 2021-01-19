@@ -10,10 +10,6 @@ class Detail extends Component {
         this.handleAddCLick = this.handleAddCLick.bind(this)
     }
 
-    componentDidMount () {
-        this.setState({ DetailTrackVideos: this.props.DetailTrackVideos })
-    }
-
     handleAddCLick (event) {
         const id = event.target.parentNode.id
         const DetailTrackVideos = this.props.DetailTrackVideos.map((trackVideo, index) => {
