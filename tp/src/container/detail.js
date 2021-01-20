@@ -10,20 +10,29 @@ class Detail extends Component {
         this.handleAddCLick = this.handleAddCLick.bind(this)
     }
 
+    componentDidUpdate () {
+        this.state.DetailTrackVideos.forEach(trackVideo => {
+            if (trackVideo.isChecked) {
+                const masterID = this.props.DetailTrack.master_id
+                const track = { playlistId: this.props.playlistId, title: trackVideo.title, uri: trackVideo.uri, masterID: masterID }
+                this.props.PlaylistData.addTrack(track, (result) => {
+                    console.log(result)
+                })
+            }
+        })
+    }
+
     handleAddCLick (event) {
         const id = event.target.parentNode.id
         const DetailTrackVideos = this.props.DetailTrackVideos.map((trackVideo, index) => {
             if (index === parseInt(id)) {
-                // si c'est faux ajouter la BD
                 if (!trackVideo.isChecked) {
-                    // build track
-                    const masterID = this.props.DetailTrack.master_id
-                    const track = { palylistId: this.props.playlistId, title: trackVideo.title, uri: trackVideo.uri, masterID: masterID }
-                    this.props.PlaylistData.addTrack(track, (result) => {
-                        console.log(result)
-                    })
+                    // const masterID = this.props.DetailTrack.master_id
+                    // const track = { playlistId: this.props.playlistId, title: trackVideo.title, uri: trackVideo.uri, masterID: masterID }
+                    // this.props.PlaylistData.addTrack(track, (result) => {
+                    //     console.log(result)
+                    // })
                 }
-                // si c'est true delete dans la BD
                 trackVideo.isChecked = !trackVideo.isChecked
             }
             return trackVideo

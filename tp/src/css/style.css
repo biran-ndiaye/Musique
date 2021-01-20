@@ -66,3 +66,7 @@
 .list-group-item {
     cursor: pointer;
 }
+
+.card img {
+    object-fit: cover;
+}

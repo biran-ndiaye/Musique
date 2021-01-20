@@ -51,8 +51,7 @@ class Music extends Component {
         if (this.state.searchValue !== '') {
             this.setState({ loading: true }, () => {
                 this.musicData.search({ query: this.state.searchValue }, result => {
-                    this.setState({ searchResult: result.results, searchValue: '', renderComponent: 'search', loading: false })
-                    console.log(this.state.searchResult)
+                    this.setState({ searchResult: result.results, renderComponent: 'search', loading: false })
                 })
             })
         }
@@ -65,21 +64,18 @@ class Music extends Component {
             .then(response => response.json())
             .then(responseObject => {
                 this.setState({ DetailTrackVideos: responseObject.videos })
-                console.log(this.state.DetailTrackVideos)
             })
     }
 
     handleOnClickSelect (event) {
         this.setState({ selectedPlaylistID: parseInt(event.target.value) })
-        PlaylistData.getTracks(this.state.selectedPlaylistID, result => {
-            console.log(this.state.selectedPlaylistID)
+        PlaylistData.getTracks(parseInt(event.target.value), result => {
             this.setState({ tracks: result })
         })
     }
 
-    handleBrandClick (event) {
-        // recuprer les tracks selon playlist_id
-        this.setState(({ renderComponent: 'playlist' }))
+    handleBrandClick () {
+        this.setState({ renderComponent: 'playlist' })
     }
 
     // afficher les composants
@@ -106,6 +102,7 @@ class Music extends Component {
                 DetailTrackVideos={this.state.DetailTrackVideos}
                 playlistId={this.state.selectedPlaylistID}
                 PlaylistData={PlaylistData}
+                renderComponent={this.state.renderComponent}
             />
         )
     }
