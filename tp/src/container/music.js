@@ -75,7 +75,9 @@ class Music extends Component {
     }
 
     handleBrandClick () {
-        this.setState({ renderComponent: 'playlist' })
+        PlaylistData.getTracks(this.state.selectedPlaylistID, result => {
+            this.setState({ tracks: result, renderComponent: 'playlist' })
+        })
     }
 
     // afficher les composants

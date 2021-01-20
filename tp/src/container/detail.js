@@ -26,13 +26,6 @@ class Detail extends Component {
         const id = event.target.parentNode.id
         const DetailTrackVideos = this.props.DetailTrackVideos.map((trackVideo, index) => {
             if (index === parseInt(id)) {
-                if (!trackVideo.isChecked) {
-                    // const masterID = this.props.DetailTrack.master_id
-                    // const track = { playlistId: this.props.playlistId, title: trackVideo.title, uri: trackVideo.uri, masterID: masterID }
-                    // this.props.PlaylistData.addTrack(track, (result) => {
-                    //     console.log(result)
-                    // })
-                }
                 trackVideo.isChecked = !trackVideo.isChecked
             }
             return trackVideo
