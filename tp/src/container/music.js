@@ -4,12 +4,12 @@ import NavBar from 'component/navbar'
 import PlaylistSelect from 'component/playlist-select'
 import SearchInput from 'component/search-input'
 import SearchResult from 'component/search-result'
-import LoadingSpinner from 'component/loading-spinner'
 import PlaylistData from 'service/playlist-data'
 import MusicData from 'service/music-data'
 import Playlist from 'container/playlist'
 import Detail from 'container/detail'
 import '../css/style.css'
+import RingLoader from 'react-spinners/RingLoader'
 
 class Music extends Component {
     constructor (props) {
@@ -123,6 +123,7 @@ class Music extends Component {
     render () {
         return (
             <div>
+
                 <NavBar
                     brand='Music'
                     id='navBarMusic'
@@ -131,7 +132,7 @@ class Music extends Component {
                     onClickSearch={this.handleSearch}
                     onClickBrand={this.handleBrandClick}
                 />
-                {this.state.loading ? <LoadingSpinner /> : (this.componentToRender())}
+                {this.state.loading ? <RingLoader color='#00BFFF' height={90} width={90} /> : (this.componentToRender())}
             </div>
 
         )
