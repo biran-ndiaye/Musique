@@ -27,5 +27,19 @@ class PlaylistData {
                 resultCallback(responseObject)
             })
     }
+
+    static deleteTrack (track, resultCallback) {
+        console.log(track)
+        const url = 'http://localhost:8080/playlist'
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(track)
+        })
+            .then(response => response.json())
+            .then(responseObject => {
+                resultCallback(responseObject)
+            })
+    }
 }
 export default PlaylistData

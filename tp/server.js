@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 // https://enable-cors.org/server_expressjs.html
 app.use(function (request, response, next) {
     response.header('Access-Control-Allow-Origin', '*')
-    response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    response.header('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
     response.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS')
     response.header('Access-Control-Allow-Credentials', 'false')
     next()
@@ -64,7 +64,14 @@ app.post('/track', (request, response) => {
             sendResponse(response, result)
         })
 })
-
+app.delete('/playlist', (request, response) => {
+    const query = 'delete from track where playlist_id=$1 and uri=$2'
+    console.log(request.body)
+    client.query(query, [request.body.playlistId, request.body.uri])
+        .then(result => {
+            sendResponse(response, result)
+        })
+})
 app.listen(PORT, function () {
     console.log('Server listening on: http://localhost:%s', PORT)
 })
