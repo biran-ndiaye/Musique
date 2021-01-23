@@ -27,7 +27,7 @@ class Music extends Component {
             indexDetail: 0
         }
         this.handleInputSearchChange = this.handleInputSearchChange.bind(this)
-        this.handleSearch = this.handleSearch.bind(this)
+        this.Button = this.Button.bind(this)
         this.handleDetail = this.handleDetail.bind(this)
         this.handleOnClickSelect = this.handleOnClickSelect.bind(this)
         this.handleBrandClick = this.handleBrandClick.bind(this)
@@ -42,12 +42,18 @@ class Music extends Component {
         })
     }
 
-    // gestionnaire des evenements
+    /**
+     * Gestion de l'input search pour save les valeurs saisies
+     * @param  event
+     */
     handleInputSearchChange (event) {
         this.setState({ searchValue: event.target.value })
     }
 
-    handleSearch () {
+    /**
+     *Affichage des results  lors du click sur le bouton search
+     */
+    handleSearchButton () {
         if (this.state.searchValue !== '') {
             this.setState({ loading: true }, () => {
                 this.musicData.search({ query: this.state.searchValue }, result => {
@@ -80,13 +86,18 @@ class Music extends Component {
         })
     }
 
-    // afficher les composants
+    /**
+     * Affichage de la composante Playlist
+     */
     renderPlayList () {
         return (
             <Playlist tracks={this.state.tracks} />
         )
     }
 
+    /**
+     * Affichage de la composante resultat de recherche provenant de discogs
+     */
     renderSearchResult () {
         return (
             <SearchResult
@@ -97,6 +108,9 @@ class Music extends Component {
         )
     }
 
+    /**
+     * Affichage de la composante detail video
+     */
     renderDetail () {
         return (
             <Detail
@@ -129,7 +143,7 @@ class Music extends Component {
                     id='navBarMusic'
                     playlistSelect={<PlaylistSelect name='playlist' id='playlist' options={this.state.playlist} onClickSelect={this.handleOnClickSelect} />}
                     inputSearch={<SearchInput id='search' name='search' placeholder='search track...' onChange={this.handleInputSearchChange} />}
-                    onClickSearch={this.handleSearch}
+                    onClickSearch={this.handleSearchButton}
                     onClickBrand={this.handleBrandClick}
                 />
                 {this.state.loading ? <RingLoader color='#00BFFF' height={90} width={90} /> : (this.componentToRender())}

@@ -65,3 +65,7 @@
 .card img {
     object-fit: cover;
 }
+
+[aria-busy] {
+    display: inline;
+}
